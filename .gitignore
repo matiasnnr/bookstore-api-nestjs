@@ -5,6 +5,9 @@
 #env
 .env
 
+#migration
+orm.config.json
+
 # Logs
 logs
 *.log
