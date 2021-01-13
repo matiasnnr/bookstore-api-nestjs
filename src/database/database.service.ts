@@ -1,7 +1,7 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Configutarion } from 'src/config/config.keys';
-import { ConfigModule } from 'src/config/config.module';
-import { ConfigService } from 'src/config/config.service';
+import { Configutarion } from '../config/config.keys';
+import { ConfigModule } from '../config/config.module';
+import { ConfigService } from '../config/config.service';
 import { ConnectionOptions } from 'typeorm';
 
 export const databaseProviders = [
@@ -12,9 +12,11 @@ export const databaseProviders = [
         // usamos useFactory para crear el objeto de conexión
         async useFactory(config: ConfigService) {
             return {
-                ssl: true,
+                // ssl: true,
                 type: 'postgres' as 'postgres',
                 host: config.get(Configutarion.HOST),
+                port: 5444,
+                database: config.get(Configutarion.DATABASE),
                 username: config.get(Configutarion.USERNAME),
                 password: config.get(Configutarion.PASSWORD),
                 entities: [`${__dirname}/../**/*.entity{.ts,.js}`],
