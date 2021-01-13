@@ -7,6 +7,7 @@ import { UserController } from './user.controller';
 
 @Module({
     imports: [TypeOrmModule.forFeature([UserRepository]), SharedModule], // se importan modulos para hacer inyección de dependencias en los constructores
-    providers: [UserService], controllers: [UserController]
+    providers: [UserService],
+    controllers: [UserController]
 })
 export class UserModule { }
