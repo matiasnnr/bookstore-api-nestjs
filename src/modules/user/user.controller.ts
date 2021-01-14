@@ -1,5 +1,7 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { Roles } from '../role/decorator/role.decorator';
+import { RoleGuard } from '../role/guards/role.guard';
 import { User } from './user.entity';
 import { UserService } from './user.service';
 
@@ -8,6 +10,8 @@ export class UserController {
     constructor(private readonly _userService: UserService) { }
 
     @Get(':id')
+    @Roles('ADMIN', 'AUTHOR')
+    @UseGuards(AuthGuard(), RoleGuard) // se encarga de proteger el endpoint, lo muestra solo cuando se cumple la authentication
     async getUser(@Param('id', ParseIntPipe) id: number): Promise<User> {
         return await this._userService.get(id);
     }
