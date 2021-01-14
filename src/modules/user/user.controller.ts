@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { User } from './user.entity';
 import { UserService } from './user.service';
 
@@ -11,12 +12,13 @@ export class UserController {
         return await this._userService.get(id);
     }
 
+    @UseGuards(AuthGuard()) // se encarga de proteger el endpoint, lo muestra solo cuando se cumple la authentication
     @Get()
     async getUsers(): Promise<User[]> {
         return await this._userService.getAll();
     }
 
-    @Post('create')
+    @Post('/create')
     async createUser(@Body() user: User): Promise<User> {
         return await this._userService.create(user);
     }
@@ -29,6 +31,14 @@ export class UserController {
     @Delete(':id')
     async deleteUser(@Param('id', ParseIntPipe) id: number): Promise<void> {
         await this._userService.delete(id);
+    }
+
+    @Post('/setrole/:userId/:roleId')
+    async setRoleToUser(
+        @Param('userId', ParseIntPipe) userId: number,
+        @Param('roleId', ParseIntPipe) roleId: number
+    ): Promise<Boolean> {
+        return this._userService.setRoleToUser(userId, roleId);
     }
 
 }

@@ -16,7 +16,7 @@ export class RoleController {
         return await this._roleService.getAll();
     }
 
-    @Post('create')
+    @Post('/create')
     async createRole(@Body() role: Role): Promise<Role> {
         return await this._roleService.create(role);
     }
