@@ -18,7 +18,7 @@ export class ConfigService {
 
             // leemos el archivo .env y lo parseamos a js
             this.envConfig = parse(fs.readFileSync(envFilePath));
-        } else { // si estamos en prod
+        } else { // si estamos en prod no deberíamos usar .env
             this.envConfig = {
                 PORT: process.env.PORT
             }

@@ -7,9 +7,10 @@ import { ConfigService } from './config/config.service';
 import { DatabaseModule } from './database/database.module';
 import { UserModule } from './modules/user/user.module';
 import { RoleModule } from './modules/role/role.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
-  imports: [ConfigModule, DatabaseModule, UserModule, RoleModule], // se importan modulos para hacer inyección de dependencias en los constructores
+  imports: [ConfigModule, DatabaseModule, UserModule, RoleModule, AuthModule], // se importan modulos para hacer inyección de dependencias en los constructores
   controllers: [AppController],
   providers: [AppService],
 })
