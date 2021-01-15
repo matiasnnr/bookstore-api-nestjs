@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { Configutarion } from './config/config.keys';
 import { ConfigModule } from './config/config.module';
 import { ConfigService } from './config/config.service';
@@ -11,8 +9,6 @@ import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [ConfigModule, DatabaseModule, UserModule, RoleModule, AuthModule], // se importan modulos para hacer inyección de dependencias en los constructores
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {
   static port: number | string;

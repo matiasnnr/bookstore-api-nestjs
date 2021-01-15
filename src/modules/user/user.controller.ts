@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGua
 import { AuthGuard } from '@nestjs/passport';
 import { Roles } from '../role/decorator/role.decorator';
 import { RoleGuard } from '../role/guards/role.guard';
+import { RoleType } from '../role/roletype.enum';
 import { User } from './user.entity';
 import { UserService } from './user.service';
 
@@ -10,8 +11,8 @@ export class UserController {
     constructor(private readonly _userService: UserService) { }
 
     @Get(':id')
-    @Roles('ADMIN', 'AUTHOR')
-    @UseGuards(AuthGuard(), RoleGuard) // se encarga de proteger el endpoint, lo muestra solo cuando se cumple la authentication
+    // @Roles(RoleType.ADMIN, RoleType.AUTHOR) // solo podrán acceder a este endpoint las personas que tengan estos roles en su perfil
+    // @UseGuards(AuthGuard(), RoleGuard) // AuthGuard se encarga de proteger el endpoint, lo muestra solo cuando se cumple la authentication. El RoleGuard se usa para validar los roles junto al @ de arriba
     async getUser(@Param('id', ParseIntPipe) id: number): Promise<User> {
         return await this._userService.get(id);
     }
