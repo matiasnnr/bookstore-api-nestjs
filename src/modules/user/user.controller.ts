@@ -18,7 +18,7 @@ export class UserController {
         return this._userService.get(userId);
     }
 
-    @UseGuards(AuthGuard()) // se encarga de proteger el endpoint, lo muestra solo cuando se cumple la authentication
+    // @UseGuards(AuthGuard()) // se encarga de proteger el endpoint, lo muestra solo cuando se cumple la authentication
     @Get()
     getUsers(): Promise<ReadUserDTO[]> {
         return this._userService.getAll();
